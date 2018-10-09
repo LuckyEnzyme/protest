@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="script/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.18/angular-ui-router.js"></script>
+    <script src="index.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="container-fluid" style="margin-top:30px;">
+    <div class="row" ng-app="myApp" ng-controller="myCtrl">
+        <ul class="col-md-2 col-md-offset-2 nav nav-pills nav-stacked">
+            <li class="{{item.status?'active':'' }}" ng-repeat="item in nav" ng-click="changeCss(item.id)"><a ui-sref={{"Page"+item.id}} >{{item.name}}</a></li>
+        </ul>
+        <ol class="col-md-6 breadcrumb">
+            <li><a ui-sref={{"Page"+olNav.id}}>{{olNav.name}}</a></li>
+        </ol>
+        <div class="col-md-6">
+            <div ui-view="">               
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

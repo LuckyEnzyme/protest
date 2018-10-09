@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet"  href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <title>Angular的第一个demo</title>
+</head>
+<body ng-app="myApp" ng-controller="listCtrl">
+    <div class="container">
+        <h3>List</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th><button class="btn" ng-click="selectAll()">全选</button></th>
+                    <th>Edit</th>
+                    <th>Name</th>
+                    <th>状态</th>
+                    <th>Title</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list">
+                    <td class="col-sm-1">
+                      <input type="checkbox" ng-model="item.choose" />
+                    </td>
+                    <td>
+                        <button class="btn" ng-click="editList(item.id)"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit</button>
+                    </td>
+                    <td>{{item.name}}</td>
+                    <td> {{item.show | changeStatus }}</td>
+                    <td>{{item.title}}</td>
+                    <td><button class="btn" ng-click="deleteList(item.id)"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp;Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>Status:true</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Edit</th>
+                    <th>Name</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list" ng-if="item.status==true">
+                    <td>
+                        <button class="btn" ng-click="editList(item.id)"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit</button>
+                    </td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.title}}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>Status:false</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Edit</th>
+                    <th>Name</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list" ng-if="!item.status">
+                    <td>
+                        <button class="btn" ng-click="editList(item.id)"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Edit</button>
+                    </td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.title}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <button class="btn btn-success" ng-click="editList('new')">
+            <span class="glyphicon glyphicon-user"></span>Create New User
+        </button>
+        <hr>
+        <h3 ng-show="edit">Create New User:</h3>
+        <h3 ng-hide="edit">Edit User:</h3>
+
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">id:</label>    
+                <div class="col-sm-10">
+                    <input type="text" ng-model="id" ng-disabled="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name:</label>    
+                <div class="col-sm-10">
+                    <input type="text" ng-model="name" placeholder="name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Title</label> 
+                <div class="col-sm-10">
+                     <input type="text" ng-model="title" placeholder="title">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Status</label>
+                <div class="col-sm-10">
+                    <input type="radio" ng-model="status" ng-value="true" name="selectState">True
+                    <input type="radio" ng-model="status" ng-value="false" name="selectState">False
+                </div>
+            </div>
+        </form>
+         <hr>
+         <button class="btn btn-success" ng-click="saveChanges()"><span class="glyphicon glyphicon-save"></span>Save Changes</button> <hr/>
+         <legend>表单赋值</legend>
+         <form class="form-horizontal">
+             <div class="form-group">
+                 <label class="col-sm-2 control-label">Name:</label>    
+                 <div class="col-sm-10">
+                     <input type="text" ng-model="submitData.name" placeholder="name">
+                 </div>
+             </div>
+             <div class="form-group">
+                 <label class="col-sm-2 control-label">Title</label> 
+                 <div class="col-sm-10">
+                      <input type="text" ng-model="submitData.title" placeholder="title">
+                 </div>
+             </div>
+             <div class="form-group">
+                 <label class="col-sm-2 control-label">Status</label>
+                 <div class="col-sm-10">
+                     <input type="radio" ng-model="submitData.status" ng-value="true" name="selectState">True
+                     <input type="radio" ng-model="submitData.status" ng-value="false" name="selectState">False
+                 </div>
+             </div>
+         </form> 
+    </div>
+    <hr/>
+    <legend>include的使用</legend>
+    <div ng-include="'myFile.html'"></div>
+    <script src = "myList.js"></script>
+</body>
+</html>
