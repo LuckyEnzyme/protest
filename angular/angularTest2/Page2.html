@@ -1,4 +1,4 @@
-<h1 style="text-align:center;">这是Page1</h1>
+<h1 style="text-align:center;">这是Page2</h1>
 <div>
     <table class="table table-striped">
         <thead>
@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in list">
+            <tr ng-repeat="item in list2">
                 <td>{{item.name}}</td>
                 <td> {{item.title}}</td>
                 <td>{{item.status | changeStatus}}</td>
@@ -17,3 +17,11 @@
         </tbody>
     </table>
 </div>
+<div>
+    <ul>
+        <li ng-repeat="item in parentNav">{{item.name+"222222"}}</li>
+    </ul>
+</div>
+<h3>data in Page2Controller: {{data.name}}</h3>
+<input type="text" ng-model="data.name"><br><br>
+<label>child2:<input type="text" ng-model="child"></label>
