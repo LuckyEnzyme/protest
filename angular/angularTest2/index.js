@@ -19,7 +19,8 @@ myApp.config(["$stateProvider","$urlRouterProvider", function($stateProvider,$ur
         })
         .state("Page4",{
             url:"/Page4",
-            templateUrl:"Page4.html"
+            templateUrl:"Page4.html",
+            //controller:"Page4Controller"
         })
         .state("Page5",{
             url:"/Page5",
@@ -27,7 +28,8 @@ myApp.config(["$stateProvider","$urlRouterProvider", function($stateProvider,$ur
         });
 }]);
 myApp.controller('myCtrl', ['$scope', 'config', function ($scope, config) {
-    console.log(config,'常量')
+    //console.log(config,'常量');
+    //$scope.type=-1;
     $scope.nav=[
         {id:1,name:'首页'},{id:2,name:'日志'},{id:3,name:'策略'},{id:4,name:'设置'},{id:5,name:'关于'}
     ];
@@ -35,6 +37,20 @@ myApp.controller('myCtrl', ['$scope', 'config', function ($scope, config) {
         id:1,
         name:"首页"
     };
+    $scope.items=[
+        {id:0,name:"待审核"},
+        {id:1,name:"审核通过"},
+        {id:2,name:"审核未通过"}
+    ];
+    //$scope.type=$scope.items[0];
+    // $scope.$watch("type",function(n,o){
+    //     console.log('success');
+    //     $scope.selecttxt=$scope.items[$scope.type];
+    //     console.log($scope.type);
+    //     console.log($scope.selecttxt);
+    // });
+  
+
     $scope.olnavText = '';
     $scope.nav.filter(it=>{
         if(it.id==1){
@@ -117,6 +133,9 @@ myApp.controller('Page2Controller', ['$scope','$http','Data',function ($scope,$h
     });
 
 }]);
+// myApp.controller('Page4Controller',['$scope',function($scope){
+
+// }]);
 myApp.filter('changeStatus',function(){
     return function(status){
         return status?'正常':'异常';

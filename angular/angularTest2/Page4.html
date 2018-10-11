@@ -1,1 +1,11 @@
 <h1>这是Page4</h1>
+<div>
+    <div class="col-md-6">
+        <select ng-model="type" ng-options="item.id as item.name for item in items">
+            <option value="" selected="selected">请选择</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <input type="text" ng-model="items[type].name" >
+    </div>
+</div>
