@@ -50,7 +50,7 @@ myApp.controller('myCtrl', ['$scope', 'config', function ($scope, config) {
     //     console.log($scope.selecttxt);
     // });
   
-
+    $scope.checkstatus=false;
     $scope.olnavText = '';
     $scope.nav.filter(it=>{
         if(it.id==1){
@@ -86,6 +86,15 @@ myApp.controller('myCtrl', ['$scope', 'config', function ($scope, config) {
         $scope.olnavText=m;
         $scope.$broadcast("child2Change",m)
     });
+
+    $scope.changechecked=function(){
+        $scope.checkstatus=!$scope.checkstatus;
+    };
+    $scope.$watch("checkstatus",function(n,o){
+        $scope.$broadcast("chenckselectall", n);
+    });
+
+
 }]);
 myApp.controller('Page1Controller', ['$scope', '$http','Data',function ($scope,$http,Data) {
     $scope.searchTxt = '';
@@ -95,16 +104,31 @@ myApp.controller('Page1Controller', ['$scope', '$http','Data',function ($scope,$
         url:'http://127.0.0.1:3000/data/testlist/list'
     }).then(function(res){
         $scope.list=res.data.data;
+        $scope.list.map(it=>it.status=false);
         //console.log($scope.list);
     });
     //父子控制器的作用域继承，子控制器可以访问父控制器上的数据
     $scope.parentNav=$scope.$parent.nav;
+    //$scope.checkstatus1=$scope.$parent.checkstatus;
     $scope.data=Data;
-   
+    
+    $scope.$watch("checkstatus",function(n,o){
+        console.log(n);
+    });
+
     //上级向下级传递消息
     $scope.$on("olNavChange",function(e,m){
         //console.log(m);
         $scope.child=m;
+    });
+
+    $scope.$on("chenckselectall",function(e,m){
+        if(m==true){
+            $scope.list.map(it=>it.status=true);
+        }
+        else{
+            $scope.list.map(it=>it.status=false);
+        }
     });
 
     //下级向上级传递消息
@@ -150,4 +174,14 @@ myApp.service('Data', [function () {
 myApp.constant('config', {
     'name' : 'sendcloud',
     'key': 'sd'
-})
+});
+myApp.directive('checkboxselect', [function () {
+    return {
+        restrict: 'AE',
+        scope:{
+            changechecked:'&'
+        },
+
+        template:'<button class="btn btn-primary" ng-click="changechecked()">全选</button>'
+    };
+}])
